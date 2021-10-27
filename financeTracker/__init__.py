@@ -1,13 +1,23 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
-import os
+from financeTracker.config import Config
 
-app = Flask(__name__)
+db = SQLAlchemy()
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
-db = SQLAlchemy(app)
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(Config)
 
-from financeTracker import routes
+    db.init_app(app)
+
+    from financeTracker.main.routes import main
+    from financeTracker.assets.routes import assets
+    from financeTracker.debts.routes import debts
+    from financeTracker.spending.routes import spending
+    app.register_blueprint(main)
+    app.register_blueprint(assets)
+    app.register_blueprint(debts)
+    app.register_blueprint(spending)
+
+    return app

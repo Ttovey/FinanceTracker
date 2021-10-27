@@ -12,20 +12,21 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../static/main.css">
 
     <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+    <script defer src="http://use.fontawesome.com/releases/v5.0.13/js/solid.js"
         integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
         crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+    <script defer src="http://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
         integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
         crossorigin="anonymous"></script>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">FinanceTracker</a>
+        <a class="navbar-brand" href="{{ url_for('main.index') }}"><i class="fas fa-dollar-sign"></i> FinanceTracker <i
+                class="fas fa-dollar-sign"></i></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -34,16 +35,17 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Dashboard<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ url_for('main.index') }}">Dashboard<span
+                            class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Assets</a>
+                    <a class="nav-link" href="{{ url_for('assets.asset') }}">Assets</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Spending</a>
+                    <a class="nav-link" href="{{ url_for('spending.spend') }}">Spending</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Debt</a>
+                    <a class="nav-link" href="{{ url_for('debts.debt') }}">Debt</a>
                 </li>
             </ul>
         </div>
