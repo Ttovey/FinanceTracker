@@ -11,6 +11,7 @@ class Asset(db.Model):
     def __repr__(self):
         return f"Asset({self.name}, {self.value})"
 
+
 class Debt(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
@@ -19,3 +20,10 @@ class Debt(db.Model):
 
     def __repr__(self):
         return f"Debt({self.name}, {self.amount})"
+
+
+class Spending(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    amount = db.Column(db.Integer, nullable=False)
+    type = db.Column(db.String(20), nullable=False, default='Other')

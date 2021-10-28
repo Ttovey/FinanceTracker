@@ -12,7 +12,7 @@ def debt():
     totalDebt = 0
     for debt in Debts:
         totalDebt += debt.amount
-
+    totalDebt = round(totalDebt, 2)
     return render_template('debts/debts.html', Debts=Debts, total=totalDebt)
 
 
