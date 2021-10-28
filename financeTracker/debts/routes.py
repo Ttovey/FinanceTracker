@@ -5,4 +5,4 @@ debts = Blueprint('debts', __name__)
 
 @debts.route('/debts')
 def debt():
-    return render_template('debts.html')
+    return render_template('debts/debts.html')

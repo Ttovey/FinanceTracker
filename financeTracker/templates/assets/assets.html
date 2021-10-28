@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class='table-container'>
+    <a class='a btn-group' href='{{ url_for("assets.new_asset") }}'><button id='manualRowBtn' type="button"
+            class="btn btn-secondary" title='Add Asset'><i class="fa fa-plus"></i></button></a>
+    <table class="table table-hover table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Asset</th>
+                <th scope="col">Value</th>
+            </tr>
+        </thead>
+        <tbody id='assetRows'>
+            <div>
+                {% for asset in Assets %}
+                <tr>
+                    <td>{{ asset.name }}</td>
+                    <td id='value'>${{ "{:,}".format(asset.value) }}</td>
+                    <td class='center'><a href="{{ url_for('assets.asset_info', asset_id=asset.id) }}"><i
+                                class="fas fa-ellipsis-v" title='Edit/More Info'></i></a></td>
+                </tr>
+                {% endfor %}
+            </div>
+        </tbody>
+        <tr>
+            <td>Total</td>
+            <td id='total'>${{ "{:,}".format(total) }}</td>
+        </tr>
+
+    </table>
+</div>
+
+<script type="text/javascript" src="{{url_for('static', filename='js/assets.js')}}"></script>
+
+{% endblock %}

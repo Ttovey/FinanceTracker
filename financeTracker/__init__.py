@@ -1,15 +1,19 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from financeTracker.config import Config
+from flask_migrate import Migrate
 
 db = SQLAlchemy()
+migrate = Migrate()
 
 
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(Config)
+    app.config['SECRET_KEY'] = 'a temporary secret key'
 
     db.init_app(app)
+    migrate.init_app(app, db)
 
     from financeTracker.main.routes import main
     from financeTracker.assets.routes import assets

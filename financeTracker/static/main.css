@@ -14,15 +14,39 @@
     margin-right: auto;
 }
 
-.money {
-    align-self: flex-end;
-}
-
 .btn-group {
     align-self: flex-end;
 }
-.table-top {
-    display: flex;
-    justify-content: space-between;
+
+.center-text {
+    text-align: center;
 }
 
+a, a:hover {
+    text-align: end !important; 
+    color: white;
+}
+
+  * {
+    margin: 0;
+  }
+  
+  .content-section {
+    background:whitesmoke;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+
+  .content {
+    padding-top: 40px;
+    min-height: calc(100vh - 120px);
+    /* 80px header + 40px footer = 120px  */
+  }
+  
+  .center {
+    margin: 0 auto;
+    text-align: center;
+    }

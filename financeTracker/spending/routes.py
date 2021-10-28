@@ -5,4 +5,4 @@ spending = Blueprint('spending', __name__)
 
 @spending.route('/spending')
 def spend():
-    return render_template('spending.html')
+    return render_template('spending/spending.html')

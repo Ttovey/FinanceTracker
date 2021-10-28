@@ -6,13 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+    {% if title %}
+    <title>Finance Tracker - {{ title }}</title>
+    {% else %}
     <title>Finance Tracker</title>
+    {% endif %}
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="../static/main.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 
     <!-- Font Awesome JS -->
     <script defer src="http://use.fontawesome.com/releases/v5.0.13/js/solid.js"
