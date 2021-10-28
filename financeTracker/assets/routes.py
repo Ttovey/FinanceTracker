@@ -33,7 +33,7 @@ def asset_info(asset_id):
     return render_template('assets/asset_info.html', asset=asset)
 
 
-@assets.route('/assets/<int:asset_id>/delete', methods=['GET', 'POST'])
+@assets.route('/assets/<int:asset_id>/delete', methods=['POST'])
 def delete_asset(asset_id):
     asset = Asset.query.get_or_404(asset_id)
     db.session.delete(asset)
