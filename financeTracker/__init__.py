@@ -19,9 +19,11 @@ def create_app(config_class=Config):
     from financeTracker.assets.routes import assets
     from financeTracker.debts.routes import debts
     from financeTracker.spending.routes import spending
+    from financeTracker.plaid.routes import plaidapi
     app.register_blueprint(main)
     app.register_blueprint(assets)
     app.register_blueprint(debts)
     app.register_blueprint(spending)
+    app.register_blueprint(plaidapi)
 
     return app

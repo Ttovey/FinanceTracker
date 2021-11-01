@@ -1,8 +1,7 @@
 from flask_wtf import FlaskForm
-from flask_wtf.recaptcha import validators
-from wtforms import StringField, SubmitField
-from wtforms.fields.core import FloatField
+from wtforms import StringField, SubmitField, FloatField
 from wtforms.validators import DataRequired
+
 
 
 class AssetForm(FlaskForm):

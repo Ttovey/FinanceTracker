@@ -1,8 +1,9 @@
 from financeTracker import create_app
+import os
 
 app = create_app()
 
-#push app context
+# push app context
 
 
 if __name__ == '__main__':
