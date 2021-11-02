@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class='content-section col-md-6 center'>
+    <form method='POST'>
+        {{ form.hidden_tag() }}
+        <fieldset class='form-group'>
+            <legend class='center-text'>Add Bitcoin: Current Price - <h3 class='price'>{{ price }}</h3>
+            </legend>
+
+            <div class='form-group'>
+                {{ form.assetName.label(class='form-control-label') }}
+                {{ form.assetName(class='form-control form-control-lg', placeholder='BTC') }}
+            </div>
+            <div class='form-group'>
+                {{ form.quantity.label(class='form-control-label') }}
+                {{ form.quantity(class='form-control form-control-lg quantity') }}
+            </div>
+            <div class='form-group'>
+                {{ form.value.label(class='form-control-label') }}
+                {{ form.value(class='form-control form-control-lg value') }}
+            </div>
+            <div class='form-group center-text'>
+                {{ form.submit(class='btn btn-outline-secondary') }}
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+
+<script>
+    let quantity = document.querySelector('.quantity');
+    let value = document.querySelector('.value')
+    let price = document.querySelector('.price')
+    console.log(price.innerHTML)
+    quantity.addEventListener('keyup', () => {
+        btcPrice = parseInt(price.innerHTML);
+        value.value = (quantity.value * btcPrice).toFixed(2);
+    })
+</script>
+
+
+
+{% endblock %}

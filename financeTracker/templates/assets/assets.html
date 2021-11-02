@@ -3,8 +3,18 @@
 {% block content %}
 
 <div class='table-container'>
-    <a class='a btn-group' href='{{ url_for("assets.new_asset") }}'><button id='manualRowBtn' type="button"
-            class="btn btn-secondary" title='Add Asset'><i class="fa fa-plus"></i></button></a>
+    <!-- <a class='a btn-group' href='{{ url_for("assets.new_asset") }}'><button id='manualRowBtn' type="button"
+            class="btn btn-secondary" title='Add Asset'><i class="fa fa-plus"></i></button></a> -->
+    <button type="button" class="btn btn-secondary btn-group" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        <i class="fa fa-plus"></i>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton center-text">
+        <a class="dropdown-item" href="{{ url_for('assets.new_asset') }}">Custom Asset</a>
+        <a class="dropdown-item" href="{{ url_for('plaid.get_accounts') }}">Bank</a>
+        <a class="dropdown-item" href="{{ url_for('poly.polygon') }}">Stock</a>
+        <a class="dropdown-item" href="{{ url_for('assets.add_bitcoin') }}">Bitcoin</a>
+    </div>
     <table class="table table-hover table-dark">
         <thead>
             <tr>

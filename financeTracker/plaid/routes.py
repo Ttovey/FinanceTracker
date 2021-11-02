@@ -20,6 +20,7 @@ import time
 from dotenv import load_dotenv
 from werkzeug.wrappers import response
 import os
+from financeTracker.assets.forms import AssetForm
 
 
 PLAID_CLIENT_ID = os.environ.get(
@@ -48,13 +49,14 @@ def plaid():
     return 'connected'
 
 
-@plaidapi.route('/plaid/accounts', methods=['GET'])
+@plaidapi.route('/plaid/accounts', methods=['GET', 'POST'])
 def get_accounts():
+    form = AssetForm()
     try:
-        request = AccountsGetRequest(
+        req = AccountsGetRequest(
             access_token=access_token
         )
-        accounts_response = client.accounts_get(request)
+        accounts_response = client.accounts_get(req)
     except plaid.ApiException as e:
         response = json.loads(e.body)
         return jsonify({'error': {'status_code': e.status, 'display_message':
@@ -64,17 +66,20 @@ def get_accounts():
     name = data['accounts'][0]['name']
     balance = data['accounts'][0]['balances']['available']
 
-    if Asset.query.filter_by(name=name).all():
-        asset = Asset.query.filter_by(name=name).first()
-        asset.value = balance
-        db.session.commit()
-    else:
-        asset = Asset(name=name, value=balance)
-        db.session.add(asset)
-        db.session.commit()
+    if request.method == 'POST':
+        if Asset.query.filter_by(name=name).all():
+            asset = Asset.query.filter_by(name=name).first()
+            asset.value = balance
+            db.session.commit()
+        else:
+            asset = Asset(name=name, value=balance)
+            db.session.add(asset)
+            db.session.commit()
+        return redirect(url_for('assets.asset'))
 
-    print(data)
-    return redirect(url_for('assets.asset'))
+    form.assetName.data = name
+    form.value.data = balance
+    return render_template('assets/new_asset.html', form=form)
 
 
 @plaidapi.route('/plaid/transactions', methods=['GET'])
