@@ -19,6 +19,7 @@
         <thead>
             <tr>
                 <th scope="col">Spend</th>
+                <th scope='col'>Category</th>
                 <th scope="col">Amount</th>
             </tr>
         </thead>
@@ -27,6 +28,7 @@
                 {% for spend in Spends %}
                 <tr>
                     <td>{{ spend.name }}</td>
+                    <td>{{ spend.type }}</td>
                     <td id='value'>${{ "{:,}".format(spend.amount) }}</td>
                     <td class='center'><a href="{{ url_for('spending.spend_info', spend_id=spend.id) }}"><i
                                 class="fas fa-ellipsis-v" title='Edit/More Info'></i></a></td>

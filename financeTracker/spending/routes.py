@@ -96,20 +96,28 @@ def get_transactions():
             options=options
         )
         response = client.transactions_get(request)
-        # print(response.to_dict()['transactions']['amount'])
-        # print(response.to_dict()['transactions']['name'])
-        # print(response.to_dict()['transactions']['transaction_id'])
         for transaction in response.to_dict()['transactions']:
             name = (transaction['name'])
             amount = (transaction['amount'])
             transaction_id = (transaction['transaction_id'])
-            print(transaction_id)
+            type = ''
+            category = transaction['category']
+            print(category)
+            if 'Shops' in category:
+                type = 'Super'
+                type = category[1]
+            elif 'Food and Drink' in category:
+                type = category[1]
+            elif 'Community' in category:
+                type = category[1]
+            else:
+                type = category[0]
 
             spend = Spending.query.filter_by(
                 transaction_id=transaction_id).first()
-            print(spend)
+
             if not spend and '-' not in str(amount):
-                newSpend = Spending(name=name, amount=amount,
+                newSpend = Spending(name=name, amount=amount, type=type,
                                     transaction_id=transaction_id)
                 db.session.add(newSpend)
                 db.session.commit()

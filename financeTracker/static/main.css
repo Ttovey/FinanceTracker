@@ -48,8 +48,13 @@ a, a:hover {
   
   .center {
     margin: 0 auto;
+    justify-content: center;
     }
 
   .top-investments {
     margin-top: 120px;
+  }
+
+  .second-row {
+   margin-left: 120px;
   }

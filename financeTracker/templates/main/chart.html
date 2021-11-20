@@ -1,14 +1,31 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<div class="row">
+<div class='center-text'>
+    <h3 class='center-text'>Networth: <em id='netWorth'>{{networth}} </em><i class="fas fa-dollar-sign" id='sign'></i>
+    </h3>
+    <div class="btn-group center">
+        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Denomination
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item center-text" href="#" id='bitcoinBtn'>Bitcoin</a>
+            <a class="dropdown-item center-text" href="#" id='satoshiBtn'>Satoshis</a>
+            <a class="dropdown-item center-text" href="#" id='usdBtn'>USD</a>
+        </div>
+    </div>
+</div>
+<div class="row center">
+    <img src='/line_plot.png'>
+</div>
+<div class="row second-row">
     <div class="column">
-        <img src="/plot.png" alt="my plot">
+        <img src="/pie_plot.png" alt="my plot">
     </div>
     <div class="column center top-investments">
         <table class="table table-hover table-dark">
-            <h2>Top Investments</h2>
+            <h2 class='center-text'>Top Investments</h2>
             <thead>
                 <tr>
                     <th scope="col"></th>
@@ -28,6 +45,96 @@
         </table>
     </div>
 </div>
+<div class="row second-row">
+    <div class="column">
+        <img src="/spending_plot.png" alt="my plot">
+    </div>
+    <div class="column center top-investments">
+        <table class="table table-hover table-dark">
+            <h2 class='center-text'>Top Spending</h2>
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for spend in spending[::-1] %}
+                <tr>
+                    <th scope="row">{{ i }}</th>
+                    <td>{{ spend[0] }}</td>
+                    <td>{{ spend[1] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    const usdNetworth = document.querySelector('#netWorth').innerHTML;
+
+    let networth = document.querySelector('#netWorth');
+    let bitcoinBtn = document.querySelector('#bitcoinBtn');
+    let satoshiBtn = document.querySelector('#satoshiBtn');
+    let usdBtn = document.querySelector('#usdBtn')
+    let sign = document.querySelector('#sign')
+    let h3 = document.querySelector('h3')
+    console.log(sign)
+    let newNetworth;
+    let btcPrice;
+
+    usdBtn.addEventListener('click', () => {
+        networth.innerHTML = usdNetworth;
+        h3.removeChild(h3.lastElementChild);
+        i = document.createElement('i');
+        i.classList.add('fas', 'fa-dollar-sign');
+        h3.appendChild(i)
+    })
+
+    bitcoinBtn.addEventListener('click', () => {
+        fetch('/bitcoin')
+            .then(function (response) {
+                return response.json();
+            }).then(function (text) {
+                console.log('GET repsonse:');
+                console.log(text)
+                btcPrice = text;
+                console.log(btcPrice)
+                networth.innerHTML = (parseInt(usdNetworth) / btcPrice).toFixed(8);
+                h3.removeChild(h3.lastElementChild);
+                i = document.createElement('i');
+                i.classList.add('fab', 'fa-btc');
+                h3.appendChild(i)
+            });
+
+
+    })
+
+    satoshiBtn.addEventListener('click', () => {
+        fetch('/bitcoin')
+            .then(function (response) {
+                return response.json();
+            }).then(function (text) {
+                console.log('GET repsonse:');
+                console.log(text)
+                btcPrice = text;
+                console.log(btcPrice)
+                networth.innerHTML = Math.round(((parseInt(usdNetworth) / btcPrice).toFixed(8)) * 10000000);
+                h3.removeChild(h3.lastElementChild);
+                img = document.createElement('img');
+                img.src = "../static/images/satoshi.png"
+                img.width = '60';
+                img.height = '40';
+                img.style.padding = "5px 20px 10px 0px"
+                h3.appendChild(img)
+            });
+
+
+    })
+
+</script>
 
 
 {% endblock %}

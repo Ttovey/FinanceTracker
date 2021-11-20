@@ -29,9 +29,9 @@ class Spending(db.Model):
     amount = db.Column(db.Integer, nullable=False)
     type = db.Column(db.String(20), nullable=False, default='Other')
     transaction_id = db.Column(db.String(120), nullable=True)
-    date = db.Column(db.DateTime, default=datetime.now())
+    date = db.Column(db.DateTime, default=datetime.now)
 
 
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    netWorth = db.Column(db.Integer, nullable=False)
+class Networth(db.Model):
+    date = db.Column(db.DateTime, default=datetime.now, primary_key=True)
+    total = db.Column(db.Integer)
